@@ -5,8 +5,6 @@
   |============================
 */
 @import url('./reset.css');
-@import url('./vite-promo.css');
-@import url('./header.css');
 
 :root {
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -22,4 +20,137 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
+}
+
+.search-section {
+  padding: 36px 0px 32px 0px;
+  display: flex;
+  justify-content: center;
+}
+
+.search-block-field {
+  width: 272px;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #808080;
+  /* margin-right: 8px; */
+}
+
+.search-block-button,
+.load-more-button {
+  height: 40px;
+  padding: 8px 16px 8px 16px;
+  border-radius: 8px;
+  background: #4E75FF;
+  border: none;
+  font-family: Montserrat;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  text-align: left;
+  color: #FFFFFF;
+}
+
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  height: 45px;
+}
+
+.search-results {
+  display: flex;
+  justify-content: center;
+}
+
+.gallery-ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+.gallery-item {
+  width: calc((100% - 3*24px)/4);
+  /* height: 200px; */
+  border: 1px solid #808080
+}
+
+.gallery {
+  height: 200px;
+}
+
+.gallery-image {
+  display: block;
+  /* max-width: 510px; */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.gallery-props {
+  display: flex;
+  width: 100%;
+  max-height: 48px;
+  justify-content: space-evenly;
+  /* flex-wrap: wrap; */
+  gap: 4px;
+  padding: 4px 12px;
+  overflow: hidden;
+}
+
+.gallery-props-item {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 16px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+.gallery-props-number {
+  font-family: Montserrat;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: 0.04em;
+  text-align: center;
+}
+
+/* /////////////////////////  Loader ////////////////////////// */
+
+.loader,
+.load-more-loader {
+  width: 40%;
+  height: 4.8px;
+  display: inline-block;
+  background: #4E75FF;
+  position: relative;
+  overflow: hidden;
+  display: none;
+}
+
+.loader::after,
+.load-more-loader::after {
+  content: '';
+  width: 0%;
+  height: 4.8px;
+  background-color: #FFF;
+  background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.25) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 75%, transparent 75%, transparent);
+  background-size: 15px 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: animFw 6s ease-in infinite;
+}
+
+@keyframes animFw {
+  0% {
+    width: 0;
+  }
+
+  100% {
+    width: 100%;
+  }
 }
