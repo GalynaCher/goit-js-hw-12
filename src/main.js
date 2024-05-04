@@ -74,7 +74,9 @@ async function performSearch() {
 
     // Define height of a <li> element for scrollDown();
     const liItem = document.querySelector("li.gallery-item:first-child");
-    scrollHeight = Math.ceil(liItem.getBoundingClientRect().height * 2);
+    if (liItem){
+        scrollHeight = Math.ceil(liItem.getBoundingClientRect().height * 2);
+    };
 };
 
 //========================== loadNextPage() ===========================//
@@ -91,6 +93,7 @@ async function loadNextPage() {
     hideElement(loaderMore);                        // Hide progress bar
   };
 
+ //========================== fetchAndRenderImages() ===========================//
 async function fetchAndRenderImages(criteria, page) { 
     const response = await fetchImages(criteria, page, perPage);
     const data = await response.data;
@@ -113,7 +116,7 @@ function handleSearchResults(data) {
     searchCriteria = '';    
 
     totalPages = Math.ceil(data.total / perPage);
-    console.log("handleSearchResults() - pageNum: ", pageNum, "totalPages: ", totalPages);
+    console.log("handleSearchResults() >> pageNum: ", pageNum, "totalPages: ", totalPages);
     
     scrollDown();                                   // Smooth scroll down 
 
@@ -122,14 +125,17 @@ function handleSearchResults(data) {
     };
  };
 
+ //========================== hideElement() ===========================//
 function hideElement(element) { 
     element.style.display = 'none';
 };
 
+ //========================== showElement() ===========================//
 function showElement(element) { 
     element.style.display = 'block';
 };
 
+ //========================== iziToastError() ===========================//
 function iziToastError(msg) { 
     iziToast.error({
         title: 'Error',
@@ -137,6 +143,7 @@ function iziToastError(msg) {
     });
 };
 
+ //========================== scrollDown() ===========================//
 function scrollDown() { 
     window.scrollBy({
         top: scrollHeight, 
