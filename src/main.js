@@ -20,7 +20,7 @@ let gallery = document.querySelector("ul.gallery-ul");
 // Define global variables
 let searchCriteria = '';
 let searchCriteriaLoad = '';
-let perPage = 16;
+let perPage = 15;
 let pageNum;
 let totalPages;
 let scrollHeight; 
@@ -67,6 +67,7 @@ async function performSearch() {
         handleSearchResults(data);
     } catch (error) { 
         console.log(error);
+        iziToastError('Sorry, an error occurred. Please, check your connection or try again later.');
     };
 
     hideElement(loader);                            // Hide progress bar
@@ -88,6 +89,7 @@ async function loadNextPage() {
 
     } catch(error) { 
         console.log(error);
+        iziToastError('Sorry, an error occurred. Please, check your connection or try again later.');
     };
 
     hideElement(loaderMore);                        // Hide progress bar
@@ -118,11 +120,16 @@ function handleSearchResults(data) {
     totalPages = Math.ceil(data.total / perPage);
     console.log("handleSearchResults() >> pageNum: ", pageNum, "totalPages: ", totalPages);
     
-    scrollDown();                                   // Smooth scroll down 
+    scrollDown();                                   // Smooth scroll down
 
-    if (pageNum < totalPages) {
-        showElement(loadMoreBtn);                   // Show Load More button
-    };
+    // if (pageNum < totalPages) {
+    //     showElement(loadMoreBtn);                   // Show Load More button
+    // };
+    pageNum < totalPages ?
+        (showElement(loadMoreBtn)
+    ) : (
+            iziToastInfo("We're sorry, but you've reached the end of search results."   
+    ));
  };
 
  //========================== hideElement() ===========================//
@@ -139,6 +146,14 @@ function showElement(element) {
 function iziToastError(msg) { 
     iziToast.error({
         title: 'Error',
+        message: msg
+    });
+};
+
+//========================== iziToastInfo() ===========================//
+function iziToastInfo(msg) { 
+    iziToast.info({
+        title: 'Info',
         message: msg
     });
 };

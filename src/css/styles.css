@@ -71,7 +71,7 @@
 }
 
 .gallery-item {
-  width: calc((100% - 3*24px)/4);
+  width: calc((100% - 2*24px)/3);
   /* height: 200px; */
   border: 1px solid #808080
 }
