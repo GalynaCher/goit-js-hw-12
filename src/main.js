@@ -16,6 +16,7 @@ const loadMoreBtn = document.querySelector(".load-more-button");
 const loader = document.querySelector(".loader");
 const loaderMore = document.querySelector(".load-more-loader");
 let gallery = document.querySelector("ul.gallery-ul");
+let searchEnd = document.querySelector(".load-more-search-end");
 
 // Define global variables
 let searchCriteria = '';
@@ -26,6 +27,7 @@ let totalPages;
 let scrollHeight; 
 
 hideElement(loadMoreBtn);                               // Hide Load More button
+hideElement(searchEnd);
 
 // Add listeners
 searchFld.addEventListener("input", () => { 
@@ -55,12 +57,14 @@ async function loadImagesMore() {
 async function performSearch() { 
 
     if (!searchCriteria.trim()) {                       // Search field cannot be empty
+        hideElement(searchEnd);                         // Hide message about search results end
         iziToastError('Search field cannot be empty');
         hideElement(loader);                            // Hide progress bar
         return;   
     }
     
     searchCriteriaLoad = searchCriteria;
+    hideElement(searchEnd);                             // Hide message about search results end
 
     try {
         const data = await fetchAndRenderImages(searchCriteria, pageNum);
@@ -83,6 +87,7 @@ async function performSearch() {
 //========================== loadNextPage() ===========================//
 async function loadNextPage() {
 
+    hideElement(searchEnd);                         // Hide message about search results end
     try {
         const data = await fetchAndRenderImages(searchCriteriaLoad, pageNum);
         handleSearchResults(data);
@@ -122,14 +127,18 @@ function handleSearchResults(data) {
     
     scrollDown();                                   // Smooth scroll down
 
-    // if (pageNum < totalPages) {
-    //     showElement(loadMoreBtn);                   // Show Load More button
-    // };
-    pageNum < totalPages ?
-        (showElement(loadMoreBtn)
-    ) : (
-            iziToastInfo("We're sorry, but you've reached the end of search results."   
-    ));
+    if (pageNum < totalPages) {
+        showElement(loadMoreBtn);                   // Show Load More button
+    }
+    else { 
+        hideElement(loadMoreBtn);
+        showElement(searchEnd);
+    };
+    // pageNum < totalPages ?
+    //     (showElement(loadMoreBtn)
+    // ) : (
+    //      iziToastInfo("We're sorry, but you've reached the end of search results."   
+    // ));
  };
 
  //========================== hideElement() ===========================//

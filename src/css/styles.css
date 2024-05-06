@@ -59,6 +59,10 @@
   height: 45px;
 }
 
+.load-more-search-end {
+  color: #4E75FF;
+}
+
 .search-results {
   display: flex;
   justify-content: center;
